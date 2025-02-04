@@ -8,7 +8,6 @@ import 'bean/bean.dart';
 class UnitPage extends StatefulWidget {
   const UnitPage({super.key});
 
-  // 创建自己的State
   @override
   State<UnitPage> createState() => _UnitPageState();
 }
@@ -18,7 +17,6 @@ class _UnitPageState extends State<UnitPage> {
   bool _loading = true;
   List<UnitInfo> infoList = [];
 
-  /// 当State刚被创建的时候，获取VideoList
   @override
   void initState() {
     super.initState();
@@ -39,15 +37,14 @@ class _UnitPageState extends State<UnitPage> {
       appBar: AppBar(
         title: const Text('8th Grade Math'),
       ),
-      // Builder的构造函数传入构造Body界面样子的逻辑
+     
       body: Builder(builder: (context) {
-        // 如果正在加载，就显示一个圆形的无尽旋转进度条
+        // endless!!!!!rotation!!!!
         if (_loading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         } else {
-          /// 如果已经拿到列表，则构造一个列表View
           return ListView.separated(
             itemBuilder: (c, i) {
               UnitInfo info = infoList[i];
@@ -61,7 +58,6 @@ class _UnitPageState extends State<UnitPage> {
                 subtitle: Text(info.description),
 
                 onTap: () {
-                  /// 跳转到VideoPage，并把对应的UnitInfo传过去
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) {
                       return VideoPage(unitInfo: info);
