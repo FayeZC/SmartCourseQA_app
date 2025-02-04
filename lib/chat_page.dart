@@ -18,7 +18,6 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   final List<types.Message> _messages = [];
-  /// 用来区分左右两个对话者的身份ID，放在消息对象Message里面
   final _user = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac');
   final _gpt = types.User(id: const Uuid().v4());
   final _cache = MessageCache.getInstance();
@@ -44,7 +43,6 @@ class _ChatPageState extends State<ChatPage> {
       appBar: AppBar(
         title: const Text('Chat'),
       ),
-      /// _messages保存要显示的所有消息对象，从index越小，在界面显示越靠下
       body: Chat(
         messages: _messages,
         onSendPressed: _handleSendPressed,
@@ -53,10 +51,8 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 
-  /// 当点击发送按钮后的逻辑
   void _handleSendPressed(types.PartialText message) {
-    /// 创建一个当前发送的message对象
-    final textMessage = types.TextMessage(
+=    final textMessage = types.TextMessage(
       author: _user,
       createdAt: DateTime.now().millisecondsSinceEpoch,
       id: const Uuid().v4(),
@@ -67,11 +63,9 @@ class _ChatPageState extends State<ChatPage> {
     /// save into cache
     _cache.addMessage(widget.videoInfo.url, CachedMessage(isUser: true, message: message.text));
 
-    /// 临时插入一个ChatGPT正在处理的消息，当真正的chatgpt消息获取到后，这个临时消息将被替换
     _addMessage(
         types.SystemMessage(id: const Uuid().v4(), text: 'generating...'));
 
-    /// 异步的获取ChatGPT的回答
     API.chat(message.text, widget.videoInfo).then((data) {
       final replyMessage = types.TextMessage(
         author: _gpt,
