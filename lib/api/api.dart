@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:video_info/bean/bean.dart';
 
-/// 调用后端的API
 class API {
   static const String _base = 'http://10.0.2.2:5000';
   static const String _videoList = '$_base/video_list';
