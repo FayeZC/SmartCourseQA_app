@@ -5,7 +5,6 @@ import 'package:video_info/chat_page.dart';
 class VideoPage extends StatefulWidget {
   final UnitInfo unitInfo;
 
-  /// 保存UnitPage传给他的unitInfo，当作这个界面应该保管的成员数据。
   const VideoPage({super.key, required this.unitInfo});
 
   @override
